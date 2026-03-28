@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>पासवर्ड प्रोटेक्टेड पेज</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; }
+        .box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; }
+        input[type="password"] { padding: 10px; margin: 10px 0; width: 200px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;}
+        #protected-content { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- लॉगिन बॉक्स -->
+    <div id="login-box" class="box">
+        <h2>Passward Please!</h2>
+        <input type="password" id="passInput" placeholder="12345678@pw">
+        <br>
+        <button onclick="check()">Ok</button>
+        <p id="msg" style="color:red;"></p>
+    </div>
+
+    <!-- छुपा हुआ कंटेंट -->
+    <div id="protected-content" class="box">
+        <h2>Welcome</h2>
+        <audio controls>
+  <source src="/storage/emulated/0/KirayePe.m4a" type="audio/mp4">
+</audio>
+         <audio controls>
+  <source src="/storage/emulated/0/Gh.m4a" type="audio/mp4">
+</audio>
+
+        <p>Hey!</p>
+        
+        <button style="position : absolute; left : 30px; top : 20px;" onclick="location.reload()">Back</button>
+        
+    </div>
+ <script>
+    // इसे एक बार चलाकर पेज रिफ्रेश करें, पासवर्ड वापस "1" हो जाएगा।
+
+        // चेक करना कि अगली बार के लिए कौन सा पासवर्ड सेट करना है
+        let currentPass = localStorage.getItem("nextPass") || "123";
+        
+        // हिंट के लिए (ऑप्शनल)
+        document.getElementById("hint").innerText = "Paasward Please ";
+
+        function check() {
+            let input = document.getElementById("passInput").value;
+            let msg = document.getElementById("msg");
+
+            if (input === currentPass) {
+                // अगर पासवर्ड सही है, तो अगले वाले को स्विच कर दो
+                if (currentPass === "123") {
+                    localStorage.setItem("nextPass", "angoor");
+                } else {
+                    localStorage.setItem("nextPass", "123");
+                }
+                
+                // स्क्रीन बदलें
+                document.getElementById("login-box").style.display = "none";
+                document.getElementById("protected-content").style.display = "block";
+            } else {
+                msg.innerText = "Wrong!";
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
